@@ -1,0 +1,95 @@
+hostname R-HEAD
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX152491Q1-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 192.168.64.2 255.255.255.248
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description TO-MLS1
+ ip address 192.168.60.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ description TO-MSL2
+ ip address 192.168.60.5 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 2.2.2.2
+ log-adjacency-changes
+ redistribute static subnets 
+ network 192.168.64.0 0.0.0.7 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 192.168.64.3 200
+ip route 192.168.10.0 255.255.255.0 192.168.60.2 
+ip route 192.168.20.0 255.255.255.0 192.168.60.2 
+ip route 192.168.30.0 255.255.255.0 192.168.60.6 
+ip route 192.168.10.0 255.255.255.0 192.168.60.6 10
+ip route 192.168.20.0 255.255.255.0 192.168.60.6 10
+ip route 192.168.30.0 255.255.255.0 192.168.60.2 10
+ip route 192.168.128.0 255.255.255.0 192.168.64.1 
+ip route 192.168.100.0 255.255.255.0 192.168.64.3 
+ip route 192.168.110.0 255.255.255.0 192.168.64.3 
+ip route 10.0.0.0 255.255.255.0 192.168.64.3 
+!
+ip flow-export version 9
+!
+!
+access-list 10 permit 192.168.30.0 0.0.0.255
+access-list 10 deny any
+!
+!
+!
+!
+!
+logging 192.168.100.100
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
