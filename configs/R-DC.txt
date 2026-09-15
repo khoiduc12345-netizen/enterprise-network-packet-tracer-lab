@@ -1,0 +1,105 @@
+hostname R-DC
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524PUY6-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 192.168.64.3 255.255.255.248
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description TRUNK-TO-DC-SW
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.100
+ encapsulation dot1Q 100
+ ip address 192.168.100.1 255.255.255.0
+ ip nat inside
+!
+interface GigabitEthernet0/1.110
+ encapsulation dot1Q 110
+ ip address 192.168.110.1 255.255.255.0
+ ip nat inside
+!
+interface GigabitEthernet0/2
+ description TO-INTERNET
+ ip address 10.0.0.2 255.255.255.0
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 3.3.3.3
+ log-adjacency-changes
+ passive-interface GigabitEthernet0/1.100
+ passive-interface GigabitEthernet0/1.110
+ network 192.168.64.0 0.0.0.7 area 0
+ default-information originate
+!
+ip nat inside source list 1 interface GigabitEthernet0/2 overload
+ip nat inside source static tcp 192.168.110.100 443 10.0.0.1 443 
+ip classless
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/2 
+ip route 192.168.128.0 255.255.255.0 192.168.64.1 
+ip route 192.168.10.0 255.255.255.0 192.168.64.2 
+ip route 192.168.20.0 255.255.255.0 192.168.64.2 
+ip route 192.168.30.0 255.255.255.0 192.168.64.2 
+!
+ip flow-export version 9
+!
+!
+access-list 10 permit 192.168.30.0 0.0.0.255
+access-list 10 deny any
+access-list 1 permit 192.168.0.0 0.0.255.255
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
