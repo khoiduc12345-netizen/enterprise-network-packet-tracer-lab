@@ -140,7 +140,13 @@ This design provides gateway redundancy while distributing VLAN gateway roles be
 
 ### HSRP Verification
 
-![EtherChannel Status](images/etherchannel-status.png)
+#### MLS1
+
+![HSRP MLS1](images/hsrp-mls1.png)
+
+#### MLS2
+
+![HSRP MLS2](images/hsrp-mls2.png)
 
 ---
 
