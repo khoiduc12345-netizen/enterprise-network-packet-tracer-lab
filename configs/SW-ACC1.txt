@@ -1,0 +1,122 @@
+hostname SW-ACC1
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface Port-channel1
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+!
+interface Port-channel4
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+ channel-group 4 mode active
+!
+interface FastEthernet0/3
+ description PC-KE-TOAN
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 0090.21A8.7B8A
+ spanning-tree portfast
+!
+interface FastEthernet0/4
+ description PC-KE-TOAN
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 000A.4125.4D3D
+ spanning-tree portfast
+!
+interface FastEthernet0/5
+ description PC-KINH-DOANH
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 0030.F293.7C17
+ spanning-tree portfast
+!
+interface FastEthernet0/6
+ description PC-KINH-DOANH
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 0001.6454.EC46
+ spanning-tree portfast
+!
+interface FastEthernet0/7
+ description PC-IT
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 0007.EC56.5B5C
+ spanning-tree portfast
+!
+interface FastEthernet0/8
+ description PC-KINH-DOANH
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/9
+ description PC-KINH-DOANH
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/23
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/24
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+ channel-group 4 mode active
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+access-list 10 permit 192.168.30.0 0.0.0.255
+access-list 10 deny any
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
