@@ -168,13 +168,7 @@ MLS2 acts as the secondary root for VLANs 10 and 20, while MLS1 acts as the seco
 
 LACP EtherChannel is used to provide redundant physical links and logical link aggregation between network switches.
 
-### MLS1
-
-![EtherChannel MLS1](images/etherchannel-mls1.png)
-
-### MLS2
-
-![EtherChannel MLS2](images/etherchannel-mls2.png)
+![EtherChannel Status](images/etherchannel-status.png)
 
 Verification command:
 
